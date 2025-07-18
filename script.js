@@ -1,95 +1,112 @@
-const bt=document.getElementById("btn");
-bt.addEventListener("click", function() {
-    const name = document.getElementById("name").value;
-    const role = document.getElementById("role").value;
-    const status = document.getElementById("status").value;
+const name = document.getElementById("name");
+const role = document.getElementById("role");
+const status = document.getElementById("status");
 
-    if (name && role && status) {
-        alert(`Name: ${name}\nRole: ${role}\nStatus: ${status}`);
-    } else {
-        alert("Please fill in all fields.");
-    }
-});
-document.getElementById("name").addEventListener("input", function() {
-    const name = this.value;
-    if (name.length < 3) {
-        this.setCustomValidity("Name must be at least 3 characters long.");
-    } else {
-        this.setCustomValidity("");
-    }
-});
-document.getElementById("role").addEventListener("input", function() {
-    const role = this.value;
-    if (role.length < 3) {
-        this.setCustomValidity("Role must be at least 3 characters long.");
-    } else {
-        this.setCustomValidity("");
-    }
-});
+const btn = document.getElementById("btn");
 
-document.getElementById("status").addEventListener("change", function() {
-    const status = this.value;
-    if (status === "Terminated") {
-        alert("You have selected 'Terminated'. Please confirm this action.");
-    }
-});
-document.querySelector("form").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent form submission
-    const name = document.getElementById("name").value;
-    const role = document.getElementById("role").value;
-    const status = document.getElementById("status").value;
+const showBtn = document.getElementById("show");
+const editBtn = document.getElementById("edit");
+const deleteBtn = document.getElementById("delete");
+const restoreBtn = document.getElementById("restore");
 
-    if (name && role && status) {
-        alert(`Form submitted with:\nName: ${name}\nRole: ${role}\nStatus: ${status}`);
-    } else {
-        alert("Please fill in all fields before submitting.");
-    }
-});
-document.querySelector("form").addEventListener("reset", function() {
-    alert("Form has been reset.");
-});
-document.querySelector("form").addEventListener("change", function() {
-    const name = document.getElementById("name").value;
-    const role = document.getElementById("role").value;
-    const status = document.getElementById("status").value;
+const form = document.querySelector("form");
+const formContainer = document.querySelector(".form-container");
+const counter = document.getElementById("counter");
+const table = document.getElementById("employeeTable");
+const tableBody = table.querySelector("tbody");
+const employees = [];
+const trash = [];
 
-    if (name || role || status) {
-        alert("Form fields have been changed.");
-    }
+btn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (name.value && role.value && status.value) {
+    const employee = {
+      name: name.value,
+      role: role.value,
+      status: status.value,
+    };
+    employees.push(employee);
+    alert("Employee added successfully!");
+  } else {
+    alert("Please fill in all fields.");
+  }
 });
 
-const show=document.getElementById("show");
-show.addEventListener("click", function() {
-    const name = document.getElementById("name").value;
-    const role = document.getElementById("role").value;
-    const status = document.getElementById("status").value;
+showBtn.addEventListener("click", () => {
+  if (employees.length > 0) {
+    tableBody.innerHTML = ""; 
+    employees.forEach((employee, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${employee.name}</td>
+        <td>${employee.role}</td>
+        <td>${employee.status}</td>
 
-    if (name || role || status) {
-        document.getElementById("showData").innerHTML = `
-            <p>Name: ${name}</p>
-            <p>Role: ${role}</p>
-            <p>Status: ${status}</p>
-        `;
-    } else {
-        alert("Please fill in all fields before showing data.");
-    }
-});
-const showData = document.getElementById("showData");
-if (showData) {
-    showData.innerHTML = "<p>No data to display.</p>";
+      `;
+      tableBody.appendChild(row);
+    });
+  } else {
+    alert("No employees to show.");
+  }
 }
-document.addEventListener("DOMContentLoaded", function() {
-    const nameInput = document.getElementById("name");
-    const roleInput = document.getElementById("role");
-    const statusSelect = document.getElementById("status");
+);
 
-    nameInput.value = "";
-    roleInput.value = "";
-    statusSelect.value = "Active"; // Default value
+editBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const index = parseInt(prompt("Enter the index of the employee to edit:"));
+  if (index >= 0 && index < employees.length) {
+    const employee = employees[index];
+    name.value = employee.name;
+    role.value = employee.role;
+    status.value = employee.status;
+    employees.splice(index, 1); 
+    alert("Employee details loaded for editing.");
+  } else {
+    alert("Invalid index.");
+  }
+}
+);
+
+deleteBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const index = parseInt(prompt("Enter the index of the employee to delete:"));
+  if (index >= 0 && index < employees.length) {
+    // Move employee to trash
+    const [deleted] = employees.splice(index, 1);
+    trash.push(deleted);
+    tableBody.innerHTML = "";
+    employees.forEach((employee, idx) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${employee.name}</td>
+        <td>${employee.role}</td>
+        <td>${employee.status}</td>
+
+      `;
+      tableBody.appendChild(row);
+    });
+    alert("Employee deleted and moved to trash.");
+  } else {
+    alert("Invalid index.");
+  }
 });
-document.addEventListener("DOMContentLoaded", function() {
-    const form = document.querySelector("form");
-    form.reset(); // Reset the form fields
-    document.getElementById("showData").innerHTML = ""; // Clear any displayed data
+
+restoreBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (trash.length === 0) {
+    alert("Trash is empty.");
+    return;
+  }
+  let msg = "Employees in Trash:\n";
+  trash.forEach((emp, idx) => {
+    msg += `${idx}: ${emp.name} (${emp.role})\n`;
+  });
+  const index = parseInt(prompt(msg + "Enter the index of the employee to restore:"));
+  if (index >= 0 && index < trash.length) {
+    const restored = trash.splice(index, 1)[0];
+    employees.push(restored);
+    alert("Employee restored successfully.");
+  } else {
+    alert("Invalid index.");
+  }
 });
- 

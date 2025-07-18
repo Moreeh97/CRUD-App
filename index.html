@@ -13,27 +13,35 @@
             <legend>Fill All infromation</legend>
             <input type="text" placeholder="employee name" id="name">
             <input type="text" placeholder="employee role" id="role">
-            <label for="cars">status:</label>
+            <label for="status">status:</label>
             <select name="status" id="status">
                 <option value="Active">Active</option>
                 <option value="Leave">Leave</option>
                 <option value="Terminated">Terminated</option>
             </select>
-            <input type="submit" value="add" id="btn">
+            <input type="submit" value="add employee" id="btn">
         </fieldset>
     </form>
-<button id="show">Show All</button>
-<div id="showData"></div>
-    <button id="clear">Clear All</button>
-    <button id="delete">Delete All</button>
-    <button id="update">Update</button>
-    <button id="search">Search</button>
-<div id="searchData"></div>
-    <div id="updateData"></div>
-    <div id="deleteData"></div>
-    <div id="clearData"></div>
-    <div id="error"></div>
-    <div id="success"></div>
+    
+    <button id="show">Show All</button>
+    <button id="edit">Edit</button>
+    <button id="delete">Delete</button>
+    <button id="restore">Restore</button>
+
+    <div id="counter"></div>
+    <table id="employeeTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+        <!-- Employee data will be inserted here -->
+    </tbody>
+  </table>
+    
     <script src="script.js"></script>
 </body>
 </html>
