@@ -7,12 +7,31 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>CRUD Application</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Employee Management</h2>
+        <p>This application allows you to manage employee records.</p>
+    </main>
     <h2>Welcome to CRUD App</h2>
-    <form>
-        <fieldset>
+    <div class="form-container">
+        <h3>Add Employee</h3>
+        <p>Fill in the form below to add a new employee.</p>
+    </div>
+    <form class="form" id="employeeForm">
+        <fieldset class="form-fieldset">
             <legend>Fill All infromation</legend>
             <input type="text" placeholder="employee name" id="name">
             <input type="text" placeholder="employee role" id="role">
+            <input type="number" placeholder="employee salary" id="salary">
             <label for="status">status:</label>
             <select name="status" id="status">
                 <option value="Active">Active</option>
@@ -27,21 +46,40 @@
     <button id="edit">Edit</button>
     <button id="delete">Delete</button>
     <button id="restore">Restore</button>
+    <button id="refresh">Refresh</button>
+
+    <button id="filterActive">Filter Active</button>
+    <button id="filterLeave">Filter Leave</button>
+    <button id="filterTerminated">Filter Terminated</button>
+    <button id="clearFilters">Clear Filters</button>
+    <button id="filterByName">Sort by Name</button>
+    <button id="filterBySalary">Sort by Salary</button>
+    <button id="filterByRole">Sort by Role</button>
+    <button id="totalSalaryOfEmployees">Total Salary</button>
 
     <div id="counter"></div>
+
     <table id="employeeTable">
       <thead>
-        <tr>
-          <th>Name</th>
-          <th>Role</th>
-          <th>Status</th>
-      </tr>
+          <tr>
+              <th>Name</th>
+              <th>Role</th>
+              <th>Salary</th>
+              <th>Status</th>
+              <th>Add Bonus</th>
+              <button id="addBonus">Add Bonus</button>
+            </tr>
     </thead>
     <tbody>
         <!-- Employee data will be inserted here -->
     </tbody>
   </table>
-    
+  
     <script src="script.js"></script>
+    
+    
+    <footer>
+        <p>&copy; 2023 CRUD App. All rights reserved.</p>
+    </footer>
 </body>
 </html>

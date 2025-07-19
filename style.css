@@ -1,0 +1,234 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+}
+
+nav {
+    margin: 10px 0;
+}   
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+}
+
+
+
+h1 {
+    margin: 0;
+}
+
+.container {
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+
+button#addBonus {
+    background-color: #008CBA;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button#addBonus:hover {
+    background-color: #007B9A;
+}
+button#edit,
+button#delete,
+button#restore {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button#edit:hover,
+button#delete:hover,
+button#restore:hover {
+    background-color: #d32f2f;
+}
+
+button#show {
+    background-color: #2196F3;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button#show:hover {
+    background-color: #1976D2;
+}
+
+.counter {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.counter::before {
+    content: "Total Employees: ";
+    font-weight: normal;
+}
+
+.counter::after {
+    content: " employees";
+    font-weight: normal;
+}
+
+footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    form {
+        flex-direction: column;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+    }
+    
+    table {
+        font-size: 14px;
+    }
+    
+    th, td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 400px) {
+    header, footer {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 24px;
+    }
+    
+    button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .form-container {
+        padding: 10px;
+    }
+    
+    .form-fieldset {
+        padding: 10px;
+    }
+}
+
+fieldset.form-fieldset {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+
+    .form-container {
+        margin-bottom: 20px;
+    }
+    
+    .form-container h3 {
+        margin-top: 0;
+    }
+    
+    .form-container p {
+        margin-bottom: 10px;
+    }
+    
+    .form-fieldset input[type="text"] {
+        width: calc(100% - 22px);
+    }
+    
+    .form-fieldset input[type="submit"] {
+        width: auto;
+        align-self: flex-start;
+    }
