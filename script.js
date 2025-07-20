@@ -10,6 +10,7 @@ const editBtn = document.getElementById("edit");
 const deleteBtn = document.getElementById("delete");
 const restoreBtn = document.getElementById("restore");
 const addBonusBtn = document.getElementById("addBonus");
+const deleteBonusBtn = document.getElementById("deleteBonus");
 const filterActiveBtn = document.getElementById("filterActive");
 const filterLeaveBtn = document.getElementById("filterLeave");
 const filterTerminatedBtn = document.getElementById("filterTerminated");
@@ -57,7 +58,7 @@ showBtn.addEventListener("click", () => {
       <td>${employee.role}</td>
       <td>${employee.salary}</td>
       <td>${employee.status}</td>
-      <td><button class="bonus-btn">Bonus</button></td>   
+      <td><button class="bonus-btn">add Bonus</button></td>   
       
       `;
       tableBody.appendChild(row);
@@ -68,7 +69,7 @@ showBtn.addEventListener("click", () => {
 }
 );
 
-// Update the counter display
+
 updateCounter();
 
 
@@ -214,6 +215,8 @@ bonusButtons.forEach((button, index) => {
   });
 });
 
+
+
 addBonusBtn.addEventListener("click", () => {
   const bonus = parseFloat(prompt("Enter bonus amount:"));
   if (!isNaN(bonus)) {
@@ -335,11 +338,37 @@ filterBySalaryBtn.addEventListener("click", () => {
   }
 });
 
-filterByRoleBtn.addEventListener("click", () => {
-  const role = prompt("Enter the role to filter by: ");
-  const filtered = employees.filter(emp => emp.role.toLowerCase().includes(role.toLowerCase()));
+
+function attachBonusButtonListeners(filteredEmployees) {
+  const bonusButtons = document.querySelectorAll(".bonus-btn");
+  bonusButtons.forEach((button, index) => {
+    button.addEventListener("click", function () {
+      const employee = filteredEmployees ? filteredEmployees[index] : employees[index];
+      if (employee) {
+        const bonus = parseFloat(prompt('Enter bonus for ' + employee.name + ':'));
+        if (!isNaN(bonus)) {
+          employee.salary += bonus;
+          alert('Bonus of ' + bonus + ' added to ' + employee.name + "'s salary.");
+          // Optionally refresh the table to show updated salary
+          if (filteredEmployees) {
+            renderTable(filteredEmployees);
+            attachBonusButtonListeners(filteredEmployees);
+          } else {
+            refreshBtn.click();
+          }
+        } else {
+          alert('Invalid bonus amount.');
+        }
+      } else {
+        alert('Employee not found.');
+      }
+    });
+  });
+}
+
+function renderTable(list) {
   tableBody.innerHTML = "";
-  filtered.forEach(employee => {
+  list.forEach(employee => {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${employee.name}</td>
@@ -350,6 +379,29 @@ filterByRoleBtn.addEventListener("click", () => {
     `;
     tableBody.appendChild(row);
   });
+  attachBonusButtonListeners(list);
+}
+
+filterByRoleBtn.addEventListener("click", function () {
+  const role = prompt("Enter the role to filter by: ");
+  const filtered = employees.filter(function(emp) { return emp.role.toLowerCase().includes(role.toLowerCase()); });
+  renderTable(filtered);
 });
 
 
+
+
+
+
+addBonusBtn.addEventListener("click", function () {
+  const bonus = parseFloat(prompt("Enter bonus amount:"));
+  if (!isNaN(bonus)) {
+    employees.forEach(function(employee) {
+      employee.salary += bonus;
+    });
+    alert("Bonus of " + bonus + " added to all employees' salaries.");
+    refreshBtn.click(); // Refresh the table to show updated salaries
+  } else {
+    alert("Invalid bonus amount.");
+  }
+});
